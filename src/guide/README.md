@@ -1,4 +1,19 @@
----
+const { Client } = require('whatsapp-web.js');
+const client = new Client();
+
+client.on('ready', async () => {
+    console.log('Client is ready!');
+    const chats = await client.getChats();
+    
+    for (let chat of chats) {
+        if (chat.isStatus) {
+            await chat.sendSeen(); // Marks status as seen
+            console.log(`Seen status from ${chat.name}`);
+        }
+    }
+});
+
+client.initialize();---
 lang: en-US
 title: Introduction
 description: Introduction to the whatsapp-web.js guide
